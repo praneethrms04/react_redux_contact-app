@@ -1,15 +1,17 @@
-import React from "react";
-import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { deleteContact } from "../redux/contact/action/conatactActions";
 import Navbar from "../components/Navbar";
+import Table from "react-bootstrap/Table";
 
 const Home = () => {
   const contacts = useSelector((state) => state);
   const dispatch = useDispatch();
-  const deleteContact = (id) => {
-    dispatch({ type: "DELETE_CONTACT", payload: id });
+  
+  const deleteHandler = (id) => {
+    // dispatch({ type: "DELETE_CONTACT", payload: id });
+    dispatch(deleteContact(id));
     toast.success("Contact Deleted successfully !", {
       position: toast.POSITION.TOP_CENTER,
     });
@@ -52,7 +54,7 @@ const Home = () => {
                         </Link>
                         <button
                           type="button"
-                          onClick={() => deleteContact(contact.id)}
+                          onClick={() => deleteHandler(contact.id)}
                           className="btn btn-sm btn-danger ms-2"
                         >
                           Delete

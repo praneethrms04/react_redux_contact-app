@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { addContact } from "../redux/contact/action/conatactActions";
 import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
+
 const AddContact = () => {
   const contacts = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(contacts);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -40,7 +41,8 @@ const AddContact = () => {
       email,
       phone,
     };
-    dispatch({ type: "ADD_CONTACT", payload: data });
+    // dispatch({ type: "ADD_CONTACT", payload: data });
+    dispatch((addContact(data)))
     toast.success("Contact Added successfully !", {
       position: toast.POSITION.TOP_CENTER,
     });

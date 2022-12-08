@@ -1,8 +1,9 @@
-import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { Link, useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { editContact } from "../redux/contact/action/conatactActions";
+import { toast } from "react-toastify";
+import Navbar from "../components/Navbar";
 
 const EditContact = () => {
   const { id } = useParams();
@@ -30,7 +31,7 @@ const EditContact = () => {
     e.preventDefault();
     const checkEmail = contacts.find(
       (contact) =>
-      //  contact.id !== parseInt(id) &&
+        //  contact.id !== parseInt(id) &&
         contact.email === email
     );
     const checkPhone = contacts.find(
@@ -42,7 +43,7 @@ const EditContact = () => {
       });
     }
     if (checkEmail) {
-      return toast.error("Email Already Exists !", {
+      return toast.error("Please Change the Email !", {
         position: toast.POSITION.TOP_CENTER,
       });
     }
@@ -57,7 +58,8 @@ const EditContact = () => {
       email,
       phone,
     };
-    dispatch({ type: "UPDATE_CONTACT", payload: data });
+    // dispatch({ type: "UPDATE_CONTACT", payload: data });
+    dispatch(editContact(data));
     toast.success("Contact Updated successfully !", {
       position: toast.POSITION.TOP_CENTER,
     });
